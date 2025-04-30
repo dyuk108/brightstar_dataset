@@ -423,6 +423,14 @@ for s in f:
     if data['Teff'] == '': # без эффективной температуры строка не нужна
         continue
 
+    # Обнаружено три строки, где Teff - не цифра или слишком маленькое (7 и 1). Убираем.
+    try:
+        Teff_float = float(data['Teff'])
+    except:
+        continue
+    if Teff_float < 2000:
+        continue
+
     # Переводим обозначение ID, которые записывались авторами как попало, в HIP.
     ID = data['ID']
     HIP = ''
